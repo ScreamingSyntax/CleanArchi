@@ -9,13 +9,27 @@ public class StudentService(IStudentRepository repository) : IStudentService
     public async Task<IEnumerable<StudentDto>> GetAllAsync()
     {
         var students = await repository.FindAllAsync();
-        return students.Select(s => new StudentDto(s.StudentId, s.Name, s.Email, s.Status));
+        return students.Select(s => new StudentDto
+        {
+            StudentId = s.StudentId,
+            Name = s.Name,
+            Email = s.Email,
+            Status = s.Status
+        });
     }
 
     public async Task<StudentDto?> GetByIdAsync(int id)
     {
         var student = await repository.GetByIdAsync(id);
-        return student is null ? null : new StudentDto(student.StudentId, student.Name, student.Email, student.Status);
+        if (student is null) return null;
+
+        return new StudentDto
+        {
+            StudentId = student.StudentId,
+            Name = student.Name,
+            Email = student.Email,
+            Status = student.Status
+        };
     }
 
     public async Task<StudentDto> CreateAsync(CreateStudentDto dto)
@@ -30,7 +44,13 @@ public class StudentService(IStudentRepository repository) : IStudentService
         repository.Create(student);
         await repository.SaveChangesAsync();
 
-        return new StudentDto(student.StudentId, student.Name, student.Email, student.Status);
+        return new StudentDto
+        {
+            StudentId = student.StudentId,
+            Name = student.Name,
+            Email = student.Email,
+            Status = student.Status
+        };
     }
 
     public async Task<StudentDto?> UpdateAsync(int id, UpdateStudentDto dto)
@@ -45,7 +65,13 @@ public class StudentService(IStudentRepository repository) : IStudentService
         repository.Update(student);
         await repository.SaveChangesAsync();
 
-        return new StudentDto(student.StudentId, student.Name, student.Email, student.Status);
+        return new StudentDto
+        {
+            StudentId = student.StudentId,
+            Name = student.Name,
+            Email = student.Email,
+            Status = student.Status
+        };
     }
 
     public async Task<bool> DeleteAsync(int id)

@@ -2,6 +2,20 @@ using CleanArchitecture.Domain.Enums;
 
 namespace CleanArchitecture.Application.DTOs;
 
-public record EnrollmentDto(int StudentId, string StudentName, int CourseId, string CourseName, DateTime EnrollmentDate, EnrollmentStatus Status);
+public class EnrollmentDto
+{
+    public int StudentId { get; set; }
+    public string StudentName { get; set; } = string.Empty;
+    public int CourseId { get; set; }
+    public string CourseName { get; set; } = string.Empty;
+    public DateTime EnrollmentDate { get; set; }
+    public EnrollmentStatus Status { get; set; }
+}
 
-public record CreateEnrollmentDto(int StudentId, int CourseId, DateTime EnrollmentDate, EnrollmentStatus Status = EnrollmentStatus.Enrolled);
+public class CreateEnrollmentDto
+{
+    public int StudentId { get; set; }
+    public int CourseId { get; set; }
+    public DateTime EnrollmentDate { get; set; }
+    public EnrollmentStatus Status { get; set; } = EnrollmentStatus.Enrolled;
+}

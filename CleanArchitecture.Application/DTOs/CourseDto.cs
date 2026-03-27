@@ -2,8 +2,24 @@ using CleanArchitecture.Domain.Enums;
 
 namespace CleanArchitecture.Application.DTOs;
 
-public record CourseDto(int CourseId, string CourseName, int Credits, CourseLevel Level);
+public class CourseDto
+{
+    public int CourseId { get; set; }
+    public string CourseName { get; set; } = string.Empty;
+    public int Credits { get; set; }
+    public CourseLevel Level { get; set; }
+}
 
-public record CreateCourseDto(string CourseName, int Credits, CourseLevel Level = CourseLevel.Beginner);
+public class CreateCourseDto
+{
+    public string CourseName { get; set; } = string.Empty;
+    public int Credits { get; set; }
+    public CourseLevel Level { get; set; } = CourseLevel.Beginner;
+}
 
-public record UpdateCourseDto(string CourseName, int Credits, CourseLevel Level);
+public class UpdateCourseDto
+{
+    public string CourseName { get; set; } = string.Empty;
+    public int Credits { get; set; }
+    public CourseLevel Level { get; set; }
+}

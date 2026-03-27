@@ -9,13 +9,27 @@ public class CourseService(ICourseRepository repository) : ICourseService
     public async Task<IEnumerable<CourseDto>> GetAllAsync()
     {
         var courses = await repository.FindAllAsync();
-        return courses.Select(c => new CourseDto(c.CourseId, c.CourseName, c.Credits, c.Level));
+        return courses.Select(c => new CourseDto
+        {
+            CourseId = c.CourseId,
+            CourseName = c.CourseName,
+            Credits = c.Credits,
+            Level = c.Level
+        });
     }
 
     public async Task<CourseDto?> GetByIdAsync(int id)
     {
         var course = await repository.GetByIdAsync(id);
-        return course is null ? null : new CourseDto(course.CourseId, course.CourseName, course.Credits, course.Level);
+        if (course is null) return null;
+
+        return new CourseDto
+        {
+            CourseId = course.CourseId,
+            CourseName = course.CourseName,
+            Credits = course.Credits,
+            Level = course.Level
+        };
     }
 
     public async Task<CourseDto> CreateAsync(CreateCourseDto dto)
@@ -30,7 +44,13 @@ public class CourseService(ICourseRepository repository) : ICourseService
         repository.Create(course);
         await repository.SaveChangesAsync();
 
-        return new CourseDto(course.CourseId, course.CourseName, course.Credits, course.Level);
+        return new CourseDto
+        {
+            CourseId = course.CourseId,
+            CourseName = course.CourseName,
+            Credits = course.Credits,
+            Level = course.Level
+        };
     }
 
     public async Task<CourseDto?> UpdateAsync(int id, UpdateCourseDto dto)
@@ -45,7 +65,13 @@ public class CourseService(ICourseRepository repository) : ICourseService
         repository.Update(course);
         await repository.SaveChangesAsync();
 
-        return new CourseDto(course.CourseId, course.CourseName, course.Credits, course.Level);
+        return new CourseDto
+        {
+            CourseId = course.CourseId,
+            CourseName = course.CourseName,
+            Credits = course.Credits,
+            Level = course.Level
+        };
     }
 
     public async Task<bool> DeleteAsync(int id)

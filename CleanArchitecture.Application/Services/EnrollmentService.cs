@@ -51,6 +51,13 @@ public class EnrollmentService(IEnrollmentRepository repository) : IEnrollmentSe
         return true;
     }
 
-    private static EnrollmentDto MapToDto(StudentCourse sc) =>
-        new(sc.StudentId, sc.Student.Name, sc.CourseId, sc.Course.CourseName, sc.EnrollmentDate, sc.Status);
+    private static EnrollmentDto MapToDto(StudentCourse sc) => new()
+    {
+        StudentId = sc.StudentId,
+        StudentName = sc.Student.Name,
+        CourseId = sc.CourseId,
+        CourseName = sc.Course.CourseName,
+        EnrollmentDate = sc.EnrollmentDate,
+        Status = sc.Status
+    };
 }
